@@ -1,0 +1,5 @@
+# Ignorar dependencias de Node.js
+/Api/Server_1/node_modules
+
+# Ignorar archivos de variables de entorno (secretos)
+/Api/Server_1/.env
