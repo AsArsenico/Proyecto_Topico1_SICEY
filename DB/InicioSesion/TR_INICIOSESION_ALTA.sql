@@ -1,31 +1,21 @@
-
-CREATE TRIGGER Tr_Usuario_Alta
-ON T_Usuarios
+CREATE TRIGGER Tr_InicioSesion_Alta
+ON T_InicioSesion
 AFTER INSERT
 AS 
 BEGIN
-	INSERT INTO T_UsuariosAuditoria (
+	INSERT INTO T_InicioSesionAuditoria (
 		ID_Usuario,
-		Nombre,
-		Edad,
 		Correo,
-		Fecha_N,
-		PesoActual,
-		Altura,
+		Contra,
 		FechaRegistro,
 		MovimientoAuditoria,
 		PerfilAuditoria,
 		FechaAuditoria
 )
-	
 
 SELECT ID_Usuario,
-		Nombre,
-		Edad,
 		Correo,
-		Fecha_N,
-		PesoActual,
-		Altura,
+		Contra,
 		FechaRegistro,
 		'A',
 		USER_NAME(),

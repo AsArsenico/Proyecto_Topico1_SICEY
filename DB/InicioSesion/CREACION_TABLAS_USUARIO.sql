@@ -1,0 +1,38 @@
+CREATE TABLE T_InicioSesion(
+	ID_Usuario INT PRIMARY KEY IDENTITY (1,1),
+	Correo NVARCHAR(50) UNIQUE,
+	Contra NVARCHAR(50) NOT NULL,
+	FechaRegistro DATE DEFAULT GETDATE()
+);
+CREATE TABLE T_DatosUsuario(
+	ID_UsuarioDatos INT PRIMARY KEY IDENTITY (1,1),
+	Nombre NVARCHAR(50) NOT NULL,
+	Edad INT NOT NULL,
+	Fecha_N DATE NOT NULL,
+	PesoActual DECIMAL(5,3) NOT NULL,
+	Altura DECIMAL(5,2) NOT NULL,
+	ID_Usuario INT NOT NULL,
+	CONSTRAINT FK_Usuario_Inicio FOREIGN KEY (ID_Usuario) REFERENCES T_InicioSesion(ID_Usuario)
+);
+CREATE TABLE T_InicioSesionAuditoria(
+	ID_UsuarioAuditoria INT PRIMARY KEY IDENTITY (1,1),
+	ID_Usuario INT NOT NULL,
+	Correo NVARCHAR(50) UNIQUE,
+	Contra NVARCHAR(50) NOT NULL,
+	FechaRegistro DATE,
+	MovimientoAuditoria NVARCHAR(1) NOT NULL, --- A = ALTA, B = BAJA, C = CAMBIO
+	PerfilAuditoria NVARCHAR(100) NOT NULL,
+	FechaAuditoria DATETIME NOT NULL
+);
+CREATE TABLE T_DatosUsuarioAuditoria(
+	ID_UsuarioDUAuditoria INT PRIMARY KEY IDENTITY (1,1),
+	ID_Usuario INT NOT NULL,
+	Nombre NVARCHAR(50) NOT NULL,
+	Edad INT NOT NULL,
+	Fecha_N DATE NOT NULL,
+	PesoActual DECIMAL(5,3) NOT NULL,
+	Altura DECIMAL(5,2) NOT NULL,
+	MovimientoDUAuditoria NVARCHAR(1) NOT NULL, --- A = ALTA, B = BAJA, C = CAMBIO
+	PerfilDUAuditoria NVARCHAR(100) NOT NULL,
+	FechaDUAuditoria DATETIME NOT NULL,
+);
