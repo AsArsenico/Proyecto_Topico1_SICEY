@@ -94,7 +94,48 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    const { Correo, Contra } = req.body;
 
+    if (!Correo || !Contra) {
+        return res.status(400).json({ msg: 'Por favor, envía Correo y Contra' });
+    }
+
+    try {
+        let pool = await sql.connect(dbConfig);
+        
+        // Ejecutamos el SP para buscar al usuario por su correo
+        let result = await pool.request()
+            .input('Correo', sql.NVarChar(50), Correo)
+            .execute('SP_InicioSesion_ConsultarPorCorreo');
+        
+        const usuario = result.recordset[0];
+
+        // Verificamos si encontramos un usuario
+        if (!usuario) {
+            return res.status(400).json({ msg: 'Credenciales inválidas' });
+        }
+
+        // Comparamos la contraseña enviada con la de la base de datos
+        // (Esto es comparación de texto plano, como lo pediste para las pruebas)
+        if (usuario.Contra !== Contra) {
+            return res.status(400).json({ msg: 'Credenciales inválidas' });
+        }
+
+        // Si todo es correcto, el inicio de sesión es exitoso
+        res.json({
+            msg: 'Inicio de sesión exitoso',
+            usuario: {
+                ID_Usuario: usuario.ID_Usuario,
+                Correo: usuario.Correo
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Error en el servidor' });
+    }
+});
 // 3. EXPORTAR EL ROUTER
 // ================================================
 module.exports = router;
