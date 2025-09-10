@@ -1,17 +1,14 @@
-CREATE PROCEDURE SP_InicioSesion_Consulta
-	@ID_Usuario INT
+CREATE PROCEDURE SP_InicioSesion_ConsultarPorCorreo
+    @Correo NVARCHAR(50)
 AS
 BEGIN
-	IF @ID_Usuario IS NOT NULL
-	BEGIN
-SELECT Correo, Contra, FechaRegistro
-FROM V_InicioSesion
-WHERE ID_Usuario = @ID_Usuario
-	END
-	ELSE
-	BEGIN
-SELECT Correo, Contra, FechaRegistro
-FROM V_InicioSesion
-	END
+    -- El objetivo es encontrar al usuario por su correo.
+    -- La API se encargará de verificar la contraseña.
+    SELECT ID_Usuario, Correo, Contra
+    FROM T_InicioSesion
+    WHERE Correo = @Correo;
 END
-GO
+
+--IF OBJECT_ID('dbo.SP_InicioSesion_Consulta', 'P') IS NOT NULL
+--    DROP PROCEDURE dbo.SP_InicioSesion_Consulta;
+--GO
