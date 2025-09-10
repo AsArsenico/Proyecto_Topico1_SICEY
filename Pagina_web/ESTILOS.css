@@ -1,0 +1,158 @@
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* CABECERA */
+    header {
+      background: #2ecc71;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .menu-btn {
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      gap: 40px;
+    }
+
+    .imagen {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .imagen img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .formulario {
+      flex: 1;
+      max-width: 400px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .formulario h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group input {
+      width: 90%;
+      padding: 12px 10px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+      background: none;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 10px;
+      top: 12px;
+      color: #888;
+      font-size: 16px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+    }
+
+    /* efecto flotante */
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -8px;
+      left: 5px;
+      font-size: 13px;
+      color: #28a745;
+    }
+
+    .boton {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #28a745;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .boton:hover {
+      background: #1e7e34;
+    }
+
+    .formulario p {
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+      color: #222;
+    }
+
+    .formulario a {
+      display: block;
+      text-align: center;
+      color: #6c2eb9;
+      font-size: 14px;
+      text-decoration: none;
+      margin-top: 5px;
+    }
+
+    .formulario a:hover {
+      text-decoration: underline;
+    }
+
+    /* PIE DE PÁGINA */
+    footer {
+      background: #eee;
+      padding: 15px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+    }
