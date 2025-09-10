@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de usuario</title>
+    <link rel="icon" href="/imagenes/iconoCPtrans.png" type="image/png">
+    <link rel="stylesheet" href="ESTILOS.css" >
+</head>
+
+<body>
+    <!--HEADER-->
+    <header>
+        <div class="logo">
+            <img src="imagenes/logoBlanco.png" alt="Logo">
+            <h1>Coach WEB</h1>
+        </div>
+        <a class="menu-btn" href="session.html">☰</a>
+    </header>
+    
+    <!--MAIN-->
+    <main>
+        <form class="formulario" id="registroForm">
+          <h1>Registro</h1>
+
+          <div class="form-group">
+            <input type="email" id="Correo" name="Correo" placeholder=" " required>
+            <label for="Correo">Correo *</label>
+          </div>
+
+          <div class="form-group">
+            <input type="password" id="Contra" name="Contra" placeholder=" " required>
+            <label for="Contra">Contraseña *</label>
+          </div>
+
+          <input class="boton" type="submit" value="Registrarse">
+
+          <p>¿Ya tienes Cuenta?</p>
+          <a href="session.html">Inicia Sesión</a>
+        </form>
+        <p id="mensaje"></p>
+    </main>
+
+    <!--FOOTER-->
+    <footer>
+        <p>Sobre Coach | Contáctanos</p>
+    </footer>
+
+    <script>
+      const form = document.getElementById("registroForm");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // evita que recargue la página
+
+        const correo = document.getElementById("Correo").value;
+        const contra = document.getElementById("Contra").value;
+
+        try {
+          const response = await fetch("http://siceyserver-env.eba-fkrrgfux.us-east-2.elasticbeanstalk.com/usuarios", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              Correo: correo,
+              Contra: contra
+            })
+          });
+
+          if (response.ok) {
+            document.getElementById("mensaje").innerText = "✅ Usuario registrado con éxito.";
+            form.reset();
+          } else {
+            const error = await response.json();
+            document.getElementById("mensaje").innerText = "❌ Error: " + error.msg;
+          }
+        } catch (err) {
+          document.getElementById("mensaje").innerText = "⚠️ No se pudo conectar con el servidor.";
+          console.error(err);
+        }
+      });
+    </script>
+</body>
+</html>
